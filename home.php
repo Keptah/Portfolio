@@ -1,7 +1,6 @@
 <?php
     require_once "session/session.php";
     require_once "navbar.php";
-
     if(!is_logged_in()) {
         logout();
         header('location:index.php');
@@ -59,16 +58,19 @@
                 </div>
                 <div class="col col-lg-4 mt-4text-start">  
                     <?php
-                        $infobox_data = get_user_infobox_data($user_id, $db);                 
+                        $infobox_data = get_user_infobox_data($user_id, $db);   
+                        //***Defining styles for chceck/tic and x icon*******************************************************************************
+                        $check_mark_style =     'bi-check-lg text-success" style="font-size: 32px;"';
+                        $x_mark_style =         'bi-x-lg text-danger" style="font-size: 28px;"';                     
                         if($infobox_data['validated']) { 
-                            $valid_check = 'bi-check-lg text-success" style="font-size: 32px;"';
+                            $valid_check = $check_mark_style;
                         }else{
-                            $valid_check = 'bi-x-lg text-danger" style="font-size: 28px;"';
+                            $valid_check = $x_mark_style;
                         }
                         if($infobox_data['got_station']) { 
-                            $station_check = 'bi-check-lg text-success" style="font-size: 32px;"';
+                            $station_check = $check_mark_style;
                         }else{
-                            $station_check = 'bi-x-lg text-danger" style="font-size: 28px;"';
+                            $station_check = $x_mark_style;
                         }
                     ?>
                     <h2 class="mt-1">Informace o uživateli</h2>
