@@ -16,6 +16,7 @@ if(!is_logged_in()) {
     <title>Document</title>
 </head>
 <script type="text/javascript">
+    //***Defining sweet alert2 alerts**************************************************************************************************************** 
     function alert_submit_success() {
         Swal.fire({
             'title' : 'Úspěch',
@@ -23,7 +24,6 @@ if(!is_logged_in()) {
             'icon' : 'success'
         });   
     }
-
     function alert_submit_fail() {
         Swal.fire({
             'title' : 'Něco se nepovedlo',
@@ -31,7 +31,6 @@ if(!is_logged_in()) {
             'icon' : 'error'
         });    
     }
-
     function alert_user_invalid() {
         Swal.fire({
             'title' : 'Vstup odepřen',
@@ -39,13 +38,19 @@ if(!is_logged_in()) {
             'icon' : 'error'
         });  
     }
+    function home_redirect() {	
+    location.href = "home.php";
+    }
 </script>
 <?php 
-$current_datetime = '20' . date('y-m-d h:i'); 
-//TODO-> timeout redirect and fire alert%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//***Give invalid user peek of page, alet necessity of validation and rdirect back to home.php*******************************************************
 if(get_user_valid($db) == 0) { 
-    // header('location:home.php');
+    echo '<script type="text/javascript">',
+        'setTimeout(home_redirect, 1500);',
+        'alert_user_invalid();',
+        '</script>';
 }
+$current_datetime = '20' . date('y-m-d h:i'); 
 ?>
 <body>
     <div class="container">    
@@ -147,7 +152,6 @@ if(get_user_valid($db) == 0) {
                                     </div>
                                 ';
                             } 
-                            $x = [];
                         if(empty(get_locations_id($user_id, $db))) {
                             echo '<span class="text-danger">Pro vyplňování záznamů je nutno přidat stanici</span>';
                         }
