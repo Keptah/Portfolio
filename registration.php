@@ -1,5 +1,5 @@
 <?php
-require_once('con/config.php');
+require_once('connect/config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
