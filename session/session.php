@@ -1,14 +1,7 @@
 <?php
     session_start();
-    require_once "C:\wamp64\www\weather\con\config.php";
-    /*TODO
-    *the email column in table user is NOT set as unique this is 
-    *serious concern. 
-    *-->find a workaround for the 767 bytes maximum
-    *OR
-    *export the whole table as csv make changes and import back 
-    */
-    
+    define('__ROOT__', dirname(dirname(__FILE__)));
+    require_once(__ROOT__.'\connect\config.php');    
     function login($user_email) {
     $_SESSION["user_email"] = $user_email;
     }

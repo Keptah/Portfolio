@@ -1,5 +1,5 @@
 <?php
-require_once('con/config.php');
+
 ?>
 
 <!DOCTYPE html>
