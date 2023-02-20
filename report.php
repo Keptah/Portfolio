@@ -4,6 +4,7 @@ require_once "navbar.php";
 if(!is_logged_in()) {
     header('location:index.php');
 }
+$user_id = get_login_id();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,14 +44,16 @@ if(!is_logged_in()) {
     }
 </script>
 <?php 
-//***Give invalid user peek of page, alet necessity of validation and rdirect back to home.php*******************************************************
-if(get_user_valid($db) == 0) { 
-    echo '<script type="text/javascript">',
-        'setTimeout(home_redirect, 1500);',
-        'alert_user_invalid();',
-        '</script>';
-}
-$current_datetime = '20' . date('y-m-d h:i'); 
+    //***Give non-validated user peek of page, alet necessity of validation and rdirect back to home.php*******************************************************
+    $user_info = get_user_infobox_data($user_id, $db);
+    if($user_info['validated'] != 1) { 
+        echo '<script type="text/javascript">',
+            'setTimeout(home_redirect, 1500);',
+            'alert_user_invalid();',
+            '</script>';
+    }
+    date_default_timezone_set('Europe/Prague');
+    $current_datetime = '20' . date('y-m-d h:i'); 
 ?>
 <body>
     <div class="container">    
