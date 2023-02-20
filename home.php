@@ -6,6 +6,7 @@
         header('location:index.php');
     }
     $user_id = get_login_id();
+    date_default_timezone_set('Europe/Prague');
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,16 +1,15 @@
 <?php
     session_start();
     define('__ROOT__', dirname(dirname(__FILE__)));
-    require_once(__ROOT__.'\connect\config.php');    
+    require_once(__ROOT__.'/connect/config.php');    
     function login($user_email) {
     $_SESSION["user_email"] = $user_email;
     }
 
-    function get_user_valid($db) { 
-        $id = get_login_id();
-        $sql = "SELECT validated FROM `user` WHERE user_id  = $id";
-        $stmtinsert  =$db->query($sql);
-        $result = $stmtinsert;
+    function get_user_valid($user_id, $db) { 
+        $sql = "SELECT validated FROM `user` WHERE user_id = $user_id";
+        $stmtinsert = $db->query($sql);
+            $result = $stmtinsert['validated'] ??= 0;
         return $result;
     }
     
@@ -61,7 +60,6 @@
         $result = [];
         $sql = "SELECT id FROM `location` WHERE user_id  = $user_id";
         $stmtinsert  =$db->query($sql);
-        // $fetch =    $stmtinsert->fetch();
         foreach($stmtinsert as $row) {
             array_push($result,$row['id']);
         }
@@ -77,6 +75,17 @@
         }
         return count($array);
     }
+
+    function get_locations_names($user_id, $db) {
+        $result = [];
+        $sql = "SELECT nickname FROM `location` WHERE user_id  = $user_id";
+        $stmtinsert  =$db->query($sql);
+        foreach($stmtinsert as $row) {
+            array_push($result,$row['nickname']);
+        }
+        return $result;
+    }
+    
     
 
     function get_location_data($user_id, $location_id, $db) {
