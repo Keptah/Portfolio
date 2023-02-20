@@ -11,21 +11,14 @@ require_once "session/session.php"
     <title>Odhlášení</title>
 </head>
 <body>
-<?php
-?>
 <h1>Odhlášení</h1>
-<?php
-?>
- 
 <script>
 function redirect() {	
     location.href = "index.php";
 	logout();
-
 }
 setTimeout(redirect, 1500);
 </script>
-
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script type="text/javascript">
             Swal.fire({
