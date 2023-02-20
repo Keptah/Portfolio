@@ -1,0 +1,79 @@
+﻿district_name,district_code,region_code
+Benešov,CZ0201,CZ020
+Beroun,CZ0202,CZ020
+Blansko,CZ0641,CZ062
+Brno-město,CZ0642,CZ062
+Brno-venkov,CZ0643,CZ062
+Bruntál,CZ0801,CZ080
+Břeclav,CZ0644,CZ062
+Cheb,CZ0411,CZ041
+Chomutov,CZ0422,CZ042
+Chrudim,CZ0531,CZ053
+Česká Lípa,CZ0511,CZ051
+České Budějovice,CZ0311,CZ031
+Český Krumlov,CZ0312,CZ031
+Děčín,CZ0421,CZ042
+Domažlice,CZ0321,CZ032
+Frýdek-Místek,CZ0802,CZ080
+Havlíčkův Brod,CZ0631,CZ061
+Hlavní město Praha,CZ0100,CZ010
+Hodonín,CZ0645,CZ062
+Hradec Králové,CZ0521,CZ052
+Jablonec nad Nisou,CZ0512,CZ051
+Jeseník,CZ0711,CZ071
+Jičín,CZ0522,CZ052
+Jihlava,CZ0632,CZ061
+Jindřichův Hradec,CZ0313,CZ031
+Karlovy Vary,CZ0412,CZ041
+Karviná,CZ0803,CZ080
+Kladno,CZ0203,CZ020
+Klatovy,CZ0322,CZ032
+Kolín,CZ0204,CZ020
+Kroměříž,CZ0721,CZ072
+Kutná Hora,CZ0205,CZ020
+Liberec,CZ0513,CZ051
+Litoměřice,CZ0423,CZ042
+Louny,CZ0424,CZ042
+Mělník,CZ0206,CZ020
+Mladá Boleslav,CZ0207,CZ020
+Most,CZ0425,CZ042
+Náchod,CZ0523,CZ052
+Nový Jičín,CZ0804,CZ080
+Nymburk,CZ0208,CZ020
+Olomouc,CZ0712,CZ071
+Opava,CZ0805,CZ080
+Ostrava-město,CZ0806,CZ080
+Pardubice,CZ0532,CZ053
+Pelhřimov,CZ0633,CZ061
+Písek,CZ0314,CZ031
+Plzeň-jih,CZ0324,CZ032
+Plzeň-město,CZ0323,CZ032
+Plzeň-sever,CZ0325,CZ032
+Prachatice,CZ0315,CZ031
+Praha-východ,CZ0209,CZ020
+Praha-západ,CZ020A,CZ020
+Prostějov,CZ0713,CZ071
+Přerov,CZ0714,CZ071
+Příbram,CZ020B,CZ020
+Rakovník,CZ020C,CZ020
+Rokycany,CZ0326,CZ032
+Rychnov nad Kněžnou,CZ0524,CZ052
+Semily,CZ0514,CZ051
+Sokolov,CZ0413,CZ041
+Strakonice,CZ0316,CZ031
+Svitavy,CZ0533,CZ053
+Šumperk,CZ0715,CZ071
+Tábor,CZ0317,CZ031
+Tachov,CZ0327,CZ032
+Teplice,CZ0426,CZ042
+Trutnov,CZ0525,CZ052
+Třebíč,CZ0634,CZ061
+Uherské Hradiště,CZ0722,CZ072
+Ústí nad Labem,CZ0427,CZ042
+Ústí nad Orlicí,CZ0534,CZ053
+území Hlavního města Prahy,CZ0100,CZ010
+Vsetín,CZ0723,CZ072
+Vyškov,CZ0646,CZ062
+Zlín,CZ0724,CZ072
+Znojmo,CZ0647,CZ062
+Žďár nad Sázavou,CZ0635,CZ061
