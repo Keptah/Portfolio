@@ -6,7 +6,6 @@
         header('location:index.php');
     }
     $user_id = get_login_id();
-    date_default_timezone_set('Europe/Prague');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,10 +80,6 @@
                         <p class="mt-2">Přihlášen '.$infobox_data['fname'].' '.$infobox_data['lname'].'</p>';  
                     ?>
                 </div>
-            </div>
-            <div class="text-center fixed-bottom">
-                <span>Vytvořil Hynek Navrátil</span>
-                <br/>
             </div>
         </div>
     </div>

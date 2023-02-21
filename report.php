@@ -66,11 +66,11 @@ $user_id = get_login_id();
                         <br>
                     </div>
 
-                    <label for="datetime">Čas</label>
+                    <label for="datetime">Čas*</label>
                     <?php 
                     echo '<input class="form-control" type="datetime-local" id="datetime" name="date" value="'.$current_datetime.'" required>';
                     ?>
-                    <label class="form-label" for="temperature">Teplota</label>
+                    <label class="form-label" for="temperature">Teplota*</label>
                     <div class="input-group mb-3">
                     <input min="-100" max="100" type="number" id="typeNumber" class="form-control" name="temperature" required/>
                         <div class="input-group-append">
@@ -78,7 +78,7 @@ $user_id = get_login_id();
                         </div>
                     </div>
 
-                    <label class="form-label" for="humidity">Relativní vlhkost</label>
+                    <label class="form-label" for="humidity">Relativní vlhkost*</label>
                     <div class="input-group mb-3">
                         <input min="0" max="100" type="number" step="0.01" id="typeNumber" class="form-control" name="humidity" required/>
                         <div class="input-group-append">
@@ -86,7 +86,7 @@ $user_id = get_login_id();
                         </div>
                     </div>
 
-                    <label for="pressure">Tlak</label>
+                    <label for="pressure">Tlak*</label>
                     <div class="input-group mb-3">
                     <input min="700" max="1400" type="number" id="typeNumber" class="form-control" name="pressure" required/>
                         <div class="input-group-append">
@@ -94,7 +94,7 @@ $user_id = get_login_id();
                         </div>
                     </div>
 
-                    <label for="wind_speed">Rychlost větru</label>
+                    <label for="wind_speed">Rychlost větru*</label>
                     <div class="input-group mb-3">
                     <input min="0" max="300" type="number" id="typeNumber" class="form-control"  name="wind_speed" required/>
                         <div class="input-group-append">
@@ -102,20 +102,27 @@ $user_id = get_login_id();
                         </div>
                     </div>
 
-                    <label for="prec_type">Typ srážek</label>
-                    <div class="input-group">
-                        <input class="form-check-input me-2 mb-3" type="radio" name="prec_type"
-                        value="" id="flexRadioDefault"><span class=" me-3 ms-3">Nic</span>
-                        <input class="form-check-input me-2 mb-3" type="radio" name="prec_type"
-                        value="rain" id="flexRadioDefault"><span class=" me-3 ms-3">Déšť</span>
-                        <input class="form-check-input me-2 mb-3" type="radio" name="prec_type"
-                        value="snow" id="flexRadioDefault"><span class=" me-3 ms-3">Sníh</span>
-                        <br>
+                    <label for="prec_type">Typ srážek*</label>
+                    <div class="container mb-3">
+                        <div class="input-group">
+                            <div class="col col-sm-4 text-start">
+                                <input class="form-check-input" type="radio" name="prec_type"
+                                value="nothing" id="flexRadioDefault" checked><span class=" me-3 ms-3">Nic</span>
+                            </div>  
+                            <div class="col col-sm-4 text-start">
+                                <input class="form-check-input" type="radio" name="prec_type"
+                                value="rain" id="flexRadioDefault"><span class=" me-3 ms-3">Déšť</span>
+                            </div>   
+                            <div class="col col-sm-4 text-start">
+                                <input class="form-check-input" type="radio" name="prec_type"
+                                value="snow" id="flexRadioDefault"><span class=" me-3 ms-3">Sníh</span>           
+                            </div>
+                        </div>
                     </div>
                     
-                    <label for="precipation">Srážky</label>	
+                    <label for="precipation">Srážky*</label>	
                     <div class="input-group mb-3">
-                    <input min="0" max="30000" type="number" id="typeNumber" class="form-control"  name="precipitation" required/>
+                    <input min="0" max="30000" type="number" id="typeNumber" class="form-control"  name="precipitation" value="0" required/>
                         <div class="input-group-append">
                             <span class="input-group-text">mm</span>
                         </div>
@@ -127,7 +134,7 @@ $user_id = get_login_id();
                 <div class="col col-lg-4">
                     <div>
                         <h1>Vyberte stanici</h1> 
-                        <p>Zaklikněte stanici použitou při měření</p>       
+                        <p>Zaklikněte stanici použitou při měření*</p>       
                     </div>        
                     <?php 
                         $user_id  = get_login_id();
@@ -183,13 +190,13 @@ $user_id = get_login_id();
             $insert_values = 
                             [$date,$temperature,$humidity,$pressure,$wind_speed,$precipitation,$precipitation_type,
                             $location_id, $selected_location['town_id'],$selected_location['district_id'],$selected_location['region_id'], $user_id];
+            print_r($insert_values);
             $sql = "INSERT INTO `weather` 
             (`date`, `temperature`, `relative_humidity`, `pressure_mb`, `wind_speed_km/h`, `precipitation_mm`, `precipitation_type`,
                 `location_id`, `location_town_id`, `location_town_district_id`, `location_town_district_region_id`, `location_user_id`) 
             VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmtinsert = $db->prepare($sql);
             $result = $stmtinsert->execute($insert_values);
-            echo $date;
             if($result) { 
                 echo '<script type="text/javascript">',
                     'alert_submit_success();',

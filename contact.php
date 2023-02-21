@@ -17,13 +17,9 @@ require_once 'navbar.php';
             <h1>Kontatkt</h1>
             <div class="col col-sm-2 text-start">
                 <span>Email:</span>
-                <br>
-                <span>Telefoní Číslo:</span>
             </div>
             <div class="col col-sm-2 text-start">
-                <span>email.placeholder@email.com</span>
-                <br>
-                <span>+420 123 456 789</span>
+                <span>hynek.navratil.hn@gmail.com</span>
             </div>
         </div>
     </div>

@@ -54,12 +54,12 @@ $town_result = $db->query($town_query);
                     <p>Zadejte informace o vaší stanici</p>
                     <div class="row justify-content-md-center">
                         <div>
-                            <label for="nickname" class="form-label">Jméno stanice</label>
+                            <label for="nickname" class="form-label">Jméno stanice*</label>
                             <input class="form-control" type="text" id="nickname" name="nickname">
                         </div>
                         <!-- each drwopdown loads all options pulled from their respective table -->
                         <div>
-                            <label for="region_dselect" class="form-label">⋆Kraj</label>
+                            <label for="region_dselect" class="form-label">Kraj*</label>
                             <input class="form-control" list="region" id="region_dselect" name="region" placeholder="Vyhledat..." required>
                             <datalist id="region">
                                     <?php
@@ -70,7 +70,7 @@ $town_result = $db->query($town_query);
                             </datalist>
                         </div>
                         <div>
-                            <label for="district_dselect" class="form-label">⋆Okres</label>
+                            <label for="district_dselect" class="form-label">Okres*</label>
                             <input class="form-control" list="district" id="district_dselect" name="district" placeholder="Vyhledat..." required>
                             <datalist id="district">
                                 <script type="text/javascript">
@@ -87,7 +87,7 @@ $town_result = $db->query($town_query);
                         </div>
 
                         <div>
-                            <label for="town_dselect" class="form-label">⋆Město</label>
+                            <label for="town_dselect" class="form-label">Město*</label>
                             <input class="form-control" list="town" id="town_dselect" name="town" placeholder="Vyhledat..." required>
                             <datalist id="town">
                             <?php

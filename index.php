@@ -10,8 +10,9 @@
     <div class="container">
         <form action="registration.php" method="post" class="row g-3">  
             <div class="row justify-content-md-center">
-                <div class="col-lg-5 text-center mt-4">   
+                <div class="col-xs-1 text-center mt-4"> 
                     <h1>Vítejte</h1>
+                    <br>
                 </div>  
             </div>
             <div class="row justify-content-md-center">
