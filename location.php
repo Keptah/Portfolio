@@ -1,11 +1,6 @@
 <?php
 require_once "session/session.php"; 
 require_once "navbar.php";
-
-
-//TODO: Improve user experience by making the dropdowns responsive so that selecting your region limits 
-//      options in district to districts within selected region, the same goes for town dropdown  
-    
 //***Pulling tables from databasse to be used as option values for dropdowns
 $region_query = "SELECT region_name, id FROM region ORDER BY region_name ASC";
 $region_result = $db->query($region_query);
@@ -13,10 +8,11 @@ $region_result = $db->query($region_query);
 $district_query = "SELECT district_name, id FROM district ORDER BY district_name ASC";
 $district_result = $db->query($district_query);
 
-$town_query = "SELECT town_name, id FROM town ORDER BY town_name ASC";
-$town_result = $db->query($town_query);
-?>
+$district_disabled = 'disabled';
+$town_disabled = 'disabled';
 
+define('BR','<br/>');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +25,7 @@ $town_result = $db->query($town_query);
     <title>location</title>
 </head>
 <script type="text/javascript">
-    //***Defining sweet alert2 alerts**************************************************************************************************************** 
+    //***Defining sweetalert2 alerts**************************************************************************************************************** 
     function alert_new_location_success() {
         Swal.fire({
             'title' : 'Úspěch',
@@ -44,137 +40,194 @@ $town_result = $db->query($town_query);
             'icon' : 'error'
         });    
     }
+
+    let temp; 
+
+    function redirect_location() {
+        window.location.href = "location.php";
+    } 
+
+    function reload() {
+        temp = setTimeout(redirect_location, 1300);
+    }
 </script>
 <body>
     <div class="container">
-        <form action="location.php" method="post" class="row">   
-            <div class="row justify-content-md-center">                    
-                <div class="col col-lg-4 text-start">   
-                    <h1>Nová Stanice</h1>
-                    <p>Zadejte informace o vaší stanici</p>
-                    <div class="row justify-content-md-center">
+        <div class="row justify-content-md-center">                 
+            <div class="col col-lg-5 text-start">   
+                <h1>Nová Stanice</h1>
+                <p>Zadejte informace o vaší stanici</p>
+                <div class="row justify-content-md-center">
+                    <!-- ***Nickname input ****************************************************************************************************** -->
+                    <form action = "<?php $_PHP_SELF ?>" method = "POST">
                         <div>
                             <label for="nickname" class="form-label">Jméno stanice*</label>
-                            <input class="form-control" type="text" id="nickname" name="nickname">
+                            <?php
+                            if(isset($_POST['nickname']) && $_POST['nickname'] != '') { 
+                                $_SESSION['input_nickname'] = $_POST['nickname'];
+                            }
+                            $disable_create = '';
+                            if(isset($_SESSION['input_nickname']) && $_SESSION['input_nickname'] != '') {
+                                $stations_name = get_locations_names($user_id, $db);
+                                foreach($stations_name as $key => $row) {
+                                    if($row == $_SESSION['input_nickname']) {
+                                        $disable_create = 'disabled';
+                                        echo '<p class="text-warning">Toto jméno jste již použili</p>';
+                                        break;
+                                    }elseif ($key === array_key_last($stations_name) ) {
+                                        echo '<p class="text-success">Toto jméno je volné</p>';
+                                    }       
+                                }
+                            }else{
+                                echo '<p class="text-success"></p>';
+                            }
+                            
+                                ?>
+                            <input class="form-control" value="<?php echo $_SESSION['input_nickname'] ??''; ?>" type="text" id="nickname" 
+                            name="nickname" onchange="this.form.submit()" required>
                         </div>
-                        <!-- each drwopdown loads all options pulled from their respective table -->
-                        <div>
+                    </form>
+                    <?php
+                       
+                    ?>  
+                    <!-- ***Region input********************************************************************************************************* -->
+                    <form action = "location.php" method = "GET">
+                        <div class="mt-3">
                             <label for="region_dselect" class="form-label">Kraj*</label>
-                            <input class="form-control" list="region" id="region_dselect" name="region" placeholder="Vyhledat..." required>
-                            <datalist id="region">
-                                    <?php
+                            <?php
+                                //***Saving selected region to sesssion so that is does not disappear on with onchange submit()" district/town*******
+                                if(isset($_GET['region']) && $_GET['region'] != '') { 
+                                    echo 'rejrklhgfkjdlahgfdkjg';
+                                    $_SESSION['input_region_id'] = $_GET['region'];
+                                }                          
+                            ?>  
+                            <!-- ***Default value of input must be set to $_SESSION['input_region_name'] not $_GET['region']
+                                    because GET is destroyed on sumbiting = changing the next form = district select **************************** -->
+                            <select class="form-select" aria-label="Kraj" 
+                            name="region" id="region" onchange="this.form.submit()" required>
+                                <option selected>Vybrete kraj</option>
+                                <?php
                                     foreach($region_result as $row1) {
-                                        echo '<option value="' .$row1["region_name"].'">' .$row1["id"]. '';
+                                        echo '<option value="' .$row1["id"].'">' .$row1["region_name"]. '</option>';
                                     }
-                                    ?>
-                            </datalist>
+                                ?>
+                            </select>
                         </div>
+                    </form>
+                    <script type="text/javascript">
+                            document.getElementById('region').value = "<?php echo $_SESSION['input_region_id'];?>";
+                            </script>
+                    <?php
+                        if(!isset($_SESSION['input_region_id']) && !isset($_GET['region'])) {
+                            $district_disabled = 'disabled';    
+                        }else{
+                            $district_disabled = '';    
+                        }
+                    ?>
+                    <!-- ***District input******************************************************************************************************* -->
+                    <form action = "location.php" method = "GET">
                         <div>
                             <label for="district_dselect" class="form-label">Okres*</label>
-                            <input class="form-control" list="district" id="district_dselect" name="district" placeholder="Vyhledat..." required>
-                            <datalist id="district">
-                                <script type="text/javascript">
-                                    var region= document.getElementById('region_dselect');
-                                </script>
-                                <?php         
-                                $selected_region =  "<script>document.writeln(res);</script>";
-                                echo $selected_region;
-                                foreach($district_result as $row2) {
-                                    echo '<option value="' .$row2["district_name"].'">';
-                                }
-                                ?>
-                            </datalist>
-                        </div>
-
-                        <div>
-                            <label for="town_dselect" class="form-label">Město*</label>
-                            <input class="form-control" list="town" id="town_dselect" name="town" placeholder="Vyhledat..." required>
-                            <datalist id="town">
-                            <?php
-                            foreach($town_result as $row3) {
-                                echo '<option value="' .$row3["town_name"].'">' .$row3["id"]. '';
-                            }
+                            <?php 
+                            if(isset($_GET['district']) && $_GET['district'] != '') { 
+                                $town_disabled = '';
+                                $_SESSION['input_district_id'] = $_GET['district'];
+                            }     
                             ?>
-                            </datalist>
+                            <select class="form-select" aria-label="Okres" 
+                            name="district" id="district" onchange="this.form.submit()" <?php echo $district_disabled; ?> required>
+                                <option selected>Vyberte okres</option>
+                                <?php    
+                                    $selected_region_id =  $_SESSION['input_region_id'];
+                                    $district_query = "SELECT district_name, id FROM district WHERE region_id = '$selected_region_id' ORDER BY district_name ASC";
+                                    $district_result = $db->query($district_query);
+                                    foreach($district_result as $row2) {
+                                        echo '<option value="' .$row2["id"].'">' .$row2["district_name"]. '</option>';
+                                    }
+                                ?>
+                            </select>
                         </div>
-                        <div class="m-4">
-                            <label for="street">Ulice </label>
-                            <input type="text" class="form-control" name="street"/>
-                            <label for="house_number">Číslo popisné </label>
-                            <input type="text" class="form-control" name="house_number"/>
+                    </form>
+                    <script type="text/javascript">
+                        document.getElementById('district').value = "<?php echo $_SESSION['input_district_id'];?>";
+                    </script>
+                    <?php
+                        if(!isset($_SESSION['input_district_id']) && !isset($_GET['district'])) {
+                            $town_disabled = 'disabled';    
+                        }else{
+                            $town_disabled = '';    
+                        }
+                    ?>
+                    <!-- ***Town input*********************************************************************************************************** -->
+                    <form action="location.php" method="POST" class="row">
+                        <label for="town_dselect" class="form-label">Město*</label>
+                        
+                        <select class="form-select" aria-label="Okres" 
+                        id="town" name="town" <?php echo $town_disabled; ?> required>
+                            <option selected>Vyberte město</option>
+                            <?php   
+                                $selected_district_id =  $_SESSION['input_district_id'];  
+                                $town_query = "SELECT town_name, id FROM town WHERE district_id  = '$selected_district_id' ORDER BY town_name ASC";
+                                $town_result = $db->query($town_query);
+                                foreach($town_result as $row3) {
+                                    echo '<option value="' .$row3["id"].'">' .$row3["town_name"]. '</option>';
+                                }
+                            ?>
+                        </select>
+                        <?php
+                            echo '<input type="submit" '.$disable_create.' class="btn btn-primary btn-lg text-center mt-3" id="new_location" name="new_location" value="Vytvořit">';
+                        ?>
+                    </form>
+                    <script type="text/javascript">
+                        document.getElementById('town').value = "<?php echo $_SESSION['input_town_id'];?>";
+                    </script>
+                    <form method="post" class="row" action="location.php">  
+                        <div>
+                            <input type="submit" class="btn btn-outline-secondary btn-lg text-center mt-2" id="unset" name="unset" value="Zrušit">
                         </div>
-                        <input type="submit" class="btn btn-primary btn-lg text-right" id="new_location" name="new_location" value="Vytvořit">  
-                    </div>
-                </div>    
+                    </form>
+                    <?php
+                    if(isset($_POST['unset'])) {
+                        unset_input_region();
+                        unset_input_district();
+                        unset_input_nick();
+                        }
+                        if(isset($_SESSION['input_region_name'])) {
+                            echo $_SESSION['input_region_name'];
+                        }
+                    ?>  
             </div>    
-        </form>
+            <div class="col col-lg-1 text-start">
+
+            </div>
+        </div>    
     </div>
     <?php
         //***On sumbmit***
-        if (isset($_POST['new_location'])) {
-            $nick = $_POST['nickname'];
-            $region_name =    $_POST['region'];
-            $district_name = $_POST['district'];
-            $town_name = $_POST['town'];
-
-            //declaring a $_SESSION type var seems to be tied to if clause otherwise the error message reads as follows
-            //Notice: " Trying to access array offset on value of type bool "
-
-            //***Pulling ids from db. 
-            // NOTE: By making id the value of optinon of dropdown and using name as tag/label
-            //       this code could be avoided. Sadly the value seems to act as titele. 
-            //      ---> find a way to show tag only or get tag value   
-            $sql = "SELECT id FROM region WHERE region_name = ?";
-            $stmtinsert = $db->prepare($sql); 
-            $stmtinsert->execute([$region_name]);
-            $row =      $stmtinsert->rowCount();
-            $fetch =    $stmtinsert->fetch();
-            if($row > 0) {
-                $_SESSION['region_id'] =    $fetch['id'];
-                $_SESSION['region_name'] =  $region_name;
-            }
-            $sql = "SELECT id FROM district WHERE district_name = ?";
-            $stmtinsert = $db->prepare($sql); 
-            $stmtinsert->execute([$district_name]);
-            $row =      $stmtinsert->rowCount();
-            $fetch =    $stmtinsert->fetch();
-            if($row > 0) {
-                $_SESSION['district_id'] =    $fetch['id'];
-                $_SESSION['district_name'] =  $district_name;
-            }
-            $sql = "SELECT id FROM town WHERE town_name = ?";
-            $stmtinsert = $db->prepare($sql); 
-            $stmtinsert->execute([$town_name]);
-            $row =      $stmtinsert->rowCount();
-            $fetch =    $stmtinsert->fetch();
-            if($row > 0) {
-                $_SESSION['town_id'] =    $fetch['id'];
-                $_SESSION['town_name'] =  $town_name;
-            }
-            $selected_location = get_location(); 
-            $user_id = get_login_id();
-            $array_print = [$nick, $selected_location['region_id'],  $selected_location['district_id'],  $selected_location['town_id'], $user_id];
-
+        if (isset($_POST['new_location']) && isset($_SESSION['input_nickname']) && isset($_SESSION['input_region_id']) && isset($_SESSION['input_district_id'])) {
+            $nick = $_SESSION['input_nickname'];
+            $region_id =    $_SESSION['input_region_id'];
+            $district_id =  $_SESSION['input_district_id'];
+            $town_id =      $_POST['town'];
+            $insert_array = [$nick, $region_id, $district_id, $town_id, $user_id];
+            print_r($insert_array);
             $sql = "INSERT INTO location(nickname, town_district_region_id, town_district_id, town_id, user_id)
             VALUES(?,?,?,?,?)";
             $stmtinsert = $db->prepare($sql);
-            $result = $stmtinsert->execute([$nick, strval($selected_location['region_id']),  strval($selected_location['district_id']),  $selected_location['town_id'], $user_id]);
+            $result = $stmtinsert->execute($insert_array);
             if($result) { 
+                unset($_SESSION["input_nickname"]);   
                 echo '<script type="text/javascript">',
                     'alert_new_location_success();',
-                    '</script>';      
+                    'reload();', 
+                    '</script>';
             }else {
                 echo '<script type="text/javascript">',
                     'alert_new_location_fail();',
-                    '</script>';
+                    '</script>'; 
             }
-        }   
+        }
+
     ?>
 </body>
 </html>
-<script>
-var select_box_element = document.querySelector('#select_box');
-dselect(select_box_element, {
-    search: true
-});
-</script>
