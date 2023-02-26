@@ -5,8 +5,6 @@
     $public_checked_switch = '';
     $private_label_style = '';
     $private_disabled_switch = '';
-
-    $user_id = get_login_id();
     if(count(get_locations_id($_SESSION['user_id'], $db)) < 1) {
         $private_disabled_switch = 'disabled';
         $private_label_style = 'text-muted';
@@ -45,22 +43,31 @@
                             $diabled_style_injection = '';
                         }
                         echo '
+                        <div class="button-toolbar">
                         <input class="form-check-input me-3 mb-2" type="radio" name="radio_filter"
-                        value="public" id="flexRadioDefault" '.$public_checked_switch.'>Sdílená';
+                        value="public" id="flexRadioDefault" '.$public_checked_switch.'><span class="me-3">Sdílená</span>';
+
                         echo '
                         <input class="form-check-input ms-3 me-3 mb-2" type="radio" name="radio_filter" 
-                        value="private" id="flexRadioDefault" required '.$private_disabled_switch.'>';
-                        //***Changin the color of label (making it look disabled) is unnecessarily complicated thusit is being replaced with sapn****
-                        echo '<span '.$diabled_style_injection.'">Osobní</span>';
+                        value="private" id="flexRadioDefault" required '.$private_disabled_switch.'>
+                        <span '.$diabled_style_injection.'">Osobní</span>       
+                        </div>';
                         ?>        
-                    <select class="form-select mt-2" name="data_dropdown">
-                        <option value="" selected>Vybrat veličinu</option>
+                    <script type="text/javascript">
+                    document.getElementById('unit_dropdown').value = "<?php echo $_POST['unit_dropdown'];?>";
+                    </script>
+                    <select class="form-select mt-2" name="unit_dropdown" id="unit_dropdown">
+                        <option value="" >Vybrat veličinu</option>
                         <option value="temperature">Teplota</option>
                         <option value="relative_humidity">Vlhkost</option>
                         <option value="wind_speed_km/h">Rychlost Větru</option>
                         <option value="precipitation_mm">Srážky</option>
                         <option value="pressure_mb">Tlak</option>
                     </select>
+                    <!-- ***Keep slected unit after submiting filters so that it is clear what does the graph represents************************* -->
+                    <script type="text/javascript">
+                        document.getElementById('unit_dropdown').value = "<?php echo $_POST['unit_dropdown'];?>";
+                    </script>
                     <div class="row content-center text-center">
                         <input type="submit" class="btn btn-primary btn-md text-center mt-3" name="filter" value="Použít">
                     </div>
@@ -72,9 +79,11 @@
                 $data_value_array  =[];//***Declaring arrays to hold values for graph***
                 $datetime_array  =[];
                 $data_select = '';
-                if(isset($_POST['filter'])  && $_POST['data_dropdown'] != '') {
-                    $data_select = $_POST['data_dropdown'];
-                    $radio_filter = $_POST['radio_filter'];
+                if(isset($_POST['filter'])  && $_POST['unit_dropdown'] != '') {
+                    $data_select =                  $_POST['unit_dropdown'];
+                    $radio_filter =                 $_POST['radio_filter'];
+                    $_SESSION['unit_select'] =      $_POST['unit_dropdown'];
+                    $_SESSION['db_type_radio'] =    $_POST['radio_filter'];
                     $selected_data_type = $data_select;
                     $sql_addon = '';
                     if($radio_filter == 'private') { 
