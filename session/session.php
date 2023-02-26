@@ -6,6 +6,11 @@
     $_SESSION["user_email"] = $user_email;
     }
 
+    //***Declaring a var for logged user id with scope to all pages that require session(vast majority)**********************************************
+    if(isset($_SESSION["user_id"])) {
+        $user_id = $_SESSION['user_id'];
+    }
+
     function get_user_valid($user_id, $db) { 
         $sql = "SELECT validated FROM `user` WHERE user_id = $user_id";
         $stmtinsert = $db->query($sql);
@@ -31,8 +36,8 @@
     }
 
     function logout() {
-    unset($_SESSION["user_email"]);
-    unset($_SESSION["user_id"]);
+        unset($_SESSION["user_email"]);
+        unset($_SESSION["user_id"]);
     }
 
     function get_valid(){
@@ -101,6 +106,8 @@
         ];
         return $result;
     }
+
+
 
     //Just a test function to see if login.php is creating vars about user correctly  
     function print_user_info() {
