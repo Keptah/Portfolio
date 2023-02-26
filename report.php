@@ -4,7 +4,6 @@ require_once "navbar.php";
 if(!is_logged_in()) {
     header('location:index.php');
 }
-$user_id = get_login_id();
 ?>
 <!DOCTYPE html>
 <html lang="en">
