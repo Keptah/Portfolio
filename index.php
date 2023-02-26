@@ -12,13 +12,14 @@
             <div class="row justify-content-md-center">
                 <div class="col-xs-1 text-center mt-4"> 
                     <h1>Vítejte</h1>
+                    <span>Vítá Vás EvidencePočasí.cz</span>
                     <br>
                 </div>  
             </div>
             <div class="row justify-content-md-center">
                 <div class="col col-lg-5 text-start">
                     <div class="row justify-content-md-center">
-                        <a href="registration.php" class="btn btn-outline-primary btn-lg text-right" role="button">Zaregistrovat se</a>       
+                        <a href="registration.php" class="btn btn-outline-primary btn-lg text-right mt-1" role="button">Zaregistrovat se</a>       
                         <p class="m-3">Máte již založený účet?</p>
                         <a href="login.php" class="btn btn-outline-secondary btn-lg text-right" role="button">Přihlásit se</a>
                     </div>  
