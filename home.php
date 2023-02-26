@@ -5,7 +5,6 @@
         logout();
         header('location:index.php');
     }
-    $user_id = get_login_id();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,12 +22,12 @@
                 <div class="mb-">
                     <h1>Úvod</h1>
                     <span >
-                        sweater.weather.cz je stránka umožnující amatérským meteorologům zadávat naměřené hodnoty 
+                       Tato aplikace umožňuje amatérským meteorologům zadávat naměřené hodnoty 
                         ze svých stanic do sdílené databáze. Data jsou následně zpracována a zpřístupněna věřejnosti v sekci 
                     </span>
                     <a href="stat.php">Statistika</a><span>.</span>
                 </div>
-                <div class="ms-3">
+                <div class="">
                     <div class="mb-3">
                         <h2>Přidávání naměřených údajů ze stanic</h1>
                         <span>Nově zaregistrovanému uživateli je umožněn přístup pouze k souhrné statictice.
@@ -39,11 +38,8 @@
                         <h4 >Ověření účtu</h3>
                         <span>Pro ověření účtu je poslat žádost na</span>
                         <br>
-                        <sapn>Email: email.placeholder@email.com</span>
+                        <sapn>Email: hynek.navreatil.hn@gmail.com</span>
                         <br>
-                        <span>nebo</span>
-                        <br>
-                        <span>Telofon: +420 123 456 789</span>
                     </div>
                     <div class="mb-3">
                         <h4>Přidávání statnic</h3>
@@ -56,8 +52,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col col-lg-4 mt-4text-start">  
-                    <?php
+                <div class="col col-lg-4 col-md-4 col-sm-8 col-8 mt-4 text-start">  
+                   <?php
                         $infobox_data = get_user_infobox_data($user_id, $db);   
                         //***Defining styles for chceck/tic and x icon*******************************************************************************
                         $check_mark_style =     'bi-check-lg text-success" style="font-size: 32px;"';
