@@ -57,9 +57,9 @@ require_once('connect/config.php');
     <div class="container">
         <form action="registration.php" method="post" class="row">  
             <div class="col-xs-1 text-center mt-2">   
-            <h1>Registrace</h1>
-            <p>Pro založení nového účtu vyplňte veškeré údaje</p>
-            <br>
+                <h1>Registrace</h1>
+                <p>Pro založení nového účtu vyplňte veškeré údaje</p>
+                <br>
             </div>  
             <div class="row justify-content-md-center gap-2">
                 <div class="col col-lg-5 text-start">
