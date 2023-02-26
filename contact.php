@@ -15,14 +15,19 @@ require_once 'navbar.php';
     <div class="container">    
         <div class="row justify-content-md-start"> 
             <h1>Kontatkt</h1>
-            <div class="col col-sm-2 text-start">
-                <span>Email:</span>
-            </div>
-            <div class="col col-sm-2 text-start">
-                <span>hynek.navratil.hn@gmail.com</span>
+                <div>
+                    <span class="">Hynek Navrátil</span>
+                    <br>
+                    <span class="">Student Gymnázia Tišnov</span>
+                </div>
+                <div class="col col-sm-2 text-start">
+                    <a>Email:</a>
+                </div>
+                <div class="col col-sm-2 text-start">
+                    <a>hynek.navratil.hn@gmail.com</a>
+                </div>
             </div>
         </div>
     </div>
-
 </body>
 </html>
