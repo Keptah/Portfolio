@@ -1,5 +1,8 @@
 <?php
 require_once 'session/session.php';
+if(!is_logged_in()) {
+    header('location:index.php');
+}
 require_once 'navbar.php';
 ?>
 

@@ -1,5 +1,8 @@
 <?php
 require_once "session/session.php"; 
+if(!is_logged_in()) {
+    header('location:index.php');
+}
 require_once "navbar.php";
 //***Pulling tables from databasse to be used as option values for dropdowns
 $region_query = "SELECT region_name, id FROM region ORDER BY region_name ASC";
