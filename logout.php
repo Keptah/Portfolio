@@ -11,21 +11,25 @@ require_once "session/session.php"
     <title>Odhlášení</title>
 </head>
 <body>
-<h1>Odhlášení</h1>
-<script>
-function redirect() {	
-    location.href = "index.php";
-	logout();
-}
-setTimeout(redirect, 1500);
-</script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script type="text/javascript">
-            Swal.fire({
-                'title' : 'Odhlášen',
-                'text' : 'účet byl úspěšně odhlášen',
-                'icon' : 'success'
-            });     
+    <h1>Odhlášení</h1>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+        Swal.fire({
+            'title' : 'Odhlášen',
+            'text' : 'účet byl úspěšně odhlášen',
+            'icon' : 'success'
+        });     
     </script> 
+    <?php 
+        logout();
+    ?>
+
+    <script>
+        function redirect() {	
+            location.href = "index.php";
+        }
+        setTimeout(redirect, 1500);
+    </script>
+   
 </body>
 </html>
