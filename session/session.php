@@ -1,7 +1,8 @@
 <?php
     session_start();
-    define('__ROOT__', dirname(dirname(__FILE__)));
-    require_once(__ROOT__.'/connect/config.php');    
+    // define('__ROOT__', dirname(dirname(__FILE__)));
+    // require_once(__ROOT__.'/connect/config.php');   
+    require_once(dirname(dirname(__FILE__)).'/connect/config.php'); 
     function login($user_email) {
     $_SESSION["user_email"] = $user_email;
     }
@@ -22,11 +23,11 @@
         return $_SESSION["user_email"];
     }
 
-    function get_login_id(){ 
+    function get_login_id() { 
         return $_SESSION["user_id"];
     }
 
-    function get_location(){
+    function get_location() {
         $array = [
             "region_id" =>      $_SESSION['region_id'],
             "district_id" =>    $_SESSION['district_id'],
@@ -60,7 +61,6 @@
         return $_SESSION['set_station'];
     }
 
-    
     function get_locations_id($user_id, $db) {
         $result = [];
         $sql = "SELECT id FROM `location` WHERE user_id  = $user_id";
@@ -107,9 +107,7 @@
         return $result;
     }
 
-
-
-    //Just a test function to see if login.php is creating vars about user correctly  
+    //Just a test function to see if login.php are being vars about user correctly  
     function print_user_info() {
         echo "<div>
                 <hr>
