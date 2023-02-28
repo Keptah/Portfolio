@@ -12,7 +12,7 @@
             <div class="row justify-content-md-center">
                 <div class="col-xs-1 text-center mt-4"> 
                     <h1>Vítejte</h1>
-                    <span>Vítá Vás EvidencePočasí.cz</span>
+                    <span>Vítá Vás EvidencePocasi.cz</span>
                     <br>
                 </div>  
             </div>

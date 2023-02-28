@@ -28,9 +28,11 @@
 <title>Statistika</title>
 </head>
 <body>
-  <h1>Statistika</h1>
-  <?php echo'<span>'.$selected_data_type.'</span>'; ?>
-  <div id="chart" calss=""></div>
+    <div class="ms-5"> 
+        <h1 >Statistika</h1>
+    </div>
+    <?php echo'<span>'.$selected_data_type.'</span>'; ?>
+    <div id="chart" calss=""></div>
     <div class="container">    
         <form action="stat.php" method="post" class="row"> 
             <div class="row justify-content-md-center">  
@@ -52,13 +54,13 @@
 
                         echo '
                         <input class="form-check-input ms-3 me-3 mb-2" type="radio" name="radio_filter" 
-                        value="private" id="flexRadioDefault" required '.$private_disabled_switch.'>
+                        id= "radio_filter" value="private" id="flexRadioDefault" required '.$private_disabled_switch.'>
                         <span '.$diabled_style_injection.'">Osobní</span>       
                         </div>';
                         ?>        
-                    <script type="text/javascript">
-                    document.getElementById('unit_dropdown').value = "<?php echo $_POST['unit_dropdown'];?>";
-                    </script>
+                    <!-- <script type="text/javascript">
+                    document.getElementById('radio_filter').value = "<?php echo $_POST['radio_filter'];?>";
+                    </script> -->
                     <select class="form-select mt-2" name="unit_dropdown" id="unit_dropdown">
                         <option value="" >Vybrat veličinu</option>
                         <option value="temperature">Teplota</option>
@@ -123,7 +125,7 @@
                     chart: {
                         type: 'line',
                         width: '95%',
-                        height: '50%'
+                        height: '420px'
                     },
                     series: [{
                         name: 'y',

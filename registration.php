@@ -19,6 +19,13 @@ require_once('connect/config.php');
             'icon' : 'success'
         });   
     }
+    function alert_registration_success_autoval() {
+        Swal.fire({
+            'title' : 'Úspěch',
+            'text' : 'Registrace proběhla úspěšně, účet je automaticky validován',
+            'icon' : 'success'
+        });   
+    }
     function alert_registration_fail() {
         Swal.fire({
             'title' : 'Něco se nepovedlo',
@@ -36,17 +43,24 @@ require_once('connect/config.php');
             $lastname =     $_POST['lastname'];
             $email =        $_POST['email'];
             $password =     $_POST['password'];
-            $sql = "INSERT INTO `user` (first_name, last_name, email, password) 
-            VALUES(?,?,?,?)";
+
+            $valid = '0';
+            $success_alert_addon = ''; 
+            if($auto_validate == true) { 
+                $success_alert_addon = '_autoval'; 
+                $valid = '1';
+            } 
+            $sql = "INSERT INTO `user` (first_name, last_name, email, password, validated) 
+            VALUES(?,?,?,?,?)";
             $stmtinsert = $db->prepare($sql); 
-            $result = $stmtinsert->execute([$firstname, $lastname, $email, $password]);
+            $result = $stmtinsert->execute([$firstname, $lastname, $email, $password, $valid]);
                 if($result) { 
-                    header("refresh:2;url=login.php");
+                    header("refresh:3;url=login.php");
                     echo '<script type="text/javascript">',
-                    'alert_registration_success();',
+                    'alert_registration_success'.$success_alert_addon.'();',
                     '</script>';
                 }else {
-                    header("refresh:2;url=login.php");
+                    header("refresh:3;url=registration.php");
                     echo '<script type="text/javascript">',
                     'alert_registration_fail();',
                     '</script>';

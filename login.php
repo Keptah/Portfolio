@@ -46,7 +46,7 @@ require_once "session/session.php";
         $email =    $_POST['email'];
         $password = $_POST['password'];
 
-        $sql = "SELECT * FROM user WHERE `email` = ? AND `password` = ?";
+        $sql = "SELECT id FROM user WHERE `email` = ? AND `password` = ?";
         $stmtinsert = $db->prepare($sql); 
         $stmtinsert->execute([$email, $password]);
         
@@ -55,11 +55,11 @@ require_once "session/session.php";
 
         
         if($row > 0) {
-            login($email);    
+            $_SESSION['user_email'] = $email;
             $_SESSION['user_id'] = $fetch['id'];     
-            $_SESSION['user_first_name'] = $fetch['first_name'];
-            $_SESSION['user_last_name'] = $fetch['last_name'];
-            $_SESSION['user_validated'] = $fetch['validated'];
+            // $_SESSION['user_first_name'] = $fetch['first_name'];
+            // $_SESSION['user_last_name'] = $fetch['last_name'];
+            // $_SESSION['user_validated'] = $fetch['validated'];
             header("location: home.php");
         } else{
             echo 

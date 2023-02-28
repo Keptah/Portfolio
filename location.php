@@ -100,7 +100,6 @@ define('BR','<br/>');
                             <?php
                                 //***Saving selected region to sesssion so that is does not disappear on with onchange submit()" district/town*******
                                 if(isset($_GET['region']) && $_GET['region'] != '') { 
-                                    echo 'rejrklhgfkjdlahgfdkjg';
                                     $_SESSION['input_region_id'] = $_GET['region'];
                                 }                          
                             ?>  
@@ -184,11 +183,11 @@ define('BR','<br/>');
                     <script type="text/javascript">
                         document.getElementById('town').value = "<?php echo $_SESSION['input_town_id'];?>";
                     </script>
-                    <form method="post" class="row" action="location.php">  
+                    <!-- <form method="post" class="row" action="location.php">  
                         <div>
                             <input type="submit" class="btn btn-outline-secondary btn-lg text-center mt-2" id="unset" name="unset" value="Zrušit">
                         </div>
-                    </form>
+                    </form> -->
                     <?php
                     if(isset($_POST['unset'])) {
                         unset_input_region();
@@ -213,7 +212,7 @@ define('BR','<br/>');
             $district_id =  $_SESSION['input_district_id'];
             $town_id =      $_POST['town'];
             $insert_array = [$nick, $region_id, $district_id, $town_id, $user_id];
-            print_r($insert_array);
+            // print_r($insert_array);
             $sql = "INSERT INTO location(nickname, town_district_region_id, town_district_id, town_id, user_id)
             VALUES(?,?,?,?,?)";
             $stmtinsert = $db->prepare($sql);

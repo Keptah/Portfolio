@@ -12,6 +12,7 @@ require_once 'navbar.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" type="text/css" href="library/bootstrap-5/css/bootstrap.min.css"> -->
     <title>Kontakt</title>
 </head>
 <body>
@@ -23,10 +24,10 @@ require_once 'navbar.php';
                     <br>
                     <span class="">Student Gymnázia Tišnov</span>
                 </div>
-                <div class="col col-sm-2 text-start">
+                <div class="col col-2 col-sm-1 col-xs-8  text-start">
                     <a>Email:</a>
                 </div>
-                <div class="col col-sm-2 text-start">
+                <div class="col col-sm-1 text-start">
                     <a>hynek.navratil.hn@gmail.com</a>
                 </div>
             </div>

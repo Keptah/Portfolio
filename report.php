@@ -27,16 +27,16 @@ if(!is_logged_in()) {
     function alert_submit_fail() {
         Swal.fire({
             'title' : 'Něco se nepovedlo',
-            'text' : 'záznam se nepodařilo uložit',
+            'text' : 'záznam se nepodařilo uložit na úrovni databáze',
             'icon' : 'error'
         });    
     }
-    function alert_user_invalid() {
+    function alert_invalid_prec_combination() {
         Swal.fire({
-            'title' : 'Vstup odepřen',
-            'text' : 'je nutno být ověřen',
+            'title' : 'Nesprávná kombinace srážek',
+            'text' : 'pro žádné srážky zvolte "Nic", pro zadání množství srážek zvolte typ',
             'icon' : 'error'
-        });  
+        });
     }
     function home_redirect() {	
     location.href = "home.php";
@@ -44,15 +44,15 @@ if(!is_logged_in()) {
 </script>
 <?php 
     //***Give non-validated user peek of page, alet necessity of validation and rdirect back to home.php*******************************************************
-    $user_info = get_user_infobox_data($user_id, $db);
-    if($user_info['validated'] != 1) { 
-        echo '<script type="text/javascript">',
-            'setTimeout(home_redirect, 1500);',
-            'alert_user_invalid();',
-            '</script>';
-    }
+    // $user_info = get_user_infobox_data($user_id, $db);
+    // if($user_info['validated'] != 1) { 
+    //     echo '<script type="text/javascript">',
+    //         'setTimeout(home_redirect, 1500);',
+    //         'alert_user_invalid();',
+    //         '</script>';
+    // }
     date_default_timezone_set('Europe/Prague');
-    $current_datetime = '20' . date('y-m-d h:i'); 
+    $current_datetime = date('Y-m-d h:i'); 
 ?>
 <body>
     <div class="container">    
@@ -67,7 +67,8 @@ if(!is_logged_in()) {
 
                     <label for="datetime">Čas*</label>
                     <?php 
-                    echo '<input class="form-control" type="datetime-local" id="datetime" name="date" value="'.$current_datetime.'" required>';
+                    echo '<input class="form-control" type="datetime-local" id="datetime" name="date" 
+                    value="'.$current_datetime.'" max="'.$current_datetime.'" required>';
                     ?>
                     <label class="form-label" for="temperature">Teplota*</label>
                     <div class="input-group mb-3">
@@ -163,19 +164,32 @@ if(!is_logged_in()) {
                             } 
                         if(empty(get_locations_id($user_id, $db))) {
                             echo '<span class="text-danger">Pro vyplňování záznamů je nutno přidat stanici</span>';
+                            $report_dasable = 'disabled';
+                        }else{
+                            $report_dasable = '';
                         }
                     ?>   
                 </div>
                 <div class="row content-center text-center">
                     <div class="row text-center">
-                        <input type="submit" class="btn btn-primary btn-lg text-center" name="report" value="Uložit">
+                        <?php
+                            echo '<input type="submit" class="btn btn-primary btn-lg text-center" name="report" value="Uložit" '.$report_dasable.' >';
+                        ?>
                     </div>
                 </div> 
             </form> 
         </div>     
     </div>
     <?php
-        if (isset($_POST['report'])) {
+        
+    if (isset($_POST['report'])) {
+        if($_POST['prec_type'] == 'nothing' && $_POST['precipitation'] != 0 ||
+        $_POST['prec_type'] == 'rain' &&  $_POST['precipitation'] < 1 || 
+        $_POST['prec_type'] == 'snow' &&  $_POST['precipitation'] < 1) {
+            echo '<script type="text/javascript">',
+            'alert_invalid_prec_combination();',
+            '</script>';
+        }else{
             $date = str_replace('T', ' ',$_POST['date']);//***Changing datetime input to mysql format***
             $temperature =          $_POST['temperature'];
             $humidity =             $_POST['humidity'];
@@ -189,7 +203,7 @@ if(!is_logged_in()) {
             $insert_values = 
                             [$date,$temperature,$humidity,$pressure,$wind_speed,$precipitation,$precipitation_type,
                             $location_id, $selected_location['town_id'],$selected_location['district_id'],$selected_location['region_id'], $user_id];
-            print_r($insert_values);
+            // print_r($insert_values);
             $sql = "INSERT INTO `weather` 
             (`date`, `temperature`, `relative_humidity`, `pressure_mb`, `wind_speed_km/h`, `precipitation_mm`, `precipitation_type`,
                 `location_id`, `location_town_id`, `location_town_district_id`, `location_town_district_region_id`, `location_user_id`) 
@@ -206,6 +220,7 @@ if(!is_logged_in()) {
                     '</script>';
             }
         }   
+    }
     ?>
 </body>
 </html>

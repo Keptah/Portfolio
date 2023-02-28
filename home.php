@@ -34,20 +34,33 @@
                         Pokud  máte zájem o přispívání daty naměřených vaší stanicí je nutné být ověřen. 
                         </span>
                     </div>
-                    <div class="mb-3">
+                    <!-- ***If $auto_validate is set to true hide div explaining validation by request******************************************* -->
+                    <?php
+                    if($auto_validate) {
+                        ?>
+                        <style type="text/css">#validation_expl{
+                            display:none;
+                            }
+                        </style>
+                    <?php
+                    }
+                    ?>
+                    <div class="mb-3" id="validation_expl">
                         <h4 >Ověření účtu</h3>
-                        <span>Pro ověření účtu je poslat žádost na</span>
+                        <span>Ověřit účet je možno zasláním žádosti na</span>
                         <br>
-                        <sapn>Email: hynek.navreatil.hn@gmail.com</span>
+                        
+                        <sapn>Email:</spam> 
+                        <span class="ms-4">hynek.navratil.hn@gmail.com</span>
                         <br>
                     </div>
                     <div class="mb-3">
                         <h4>Přidávání statnic</h3>
-                        <sapn>Po úspěšném ověření účtu je vám umožněno </span><a href="location.php">Přidat stanici</a>
+                        <sapn>Po úspěšném ověření účtu je vám umožněno </span><a href="location.php">Přidat stanici</a><span>.</span>
                         </div>
                         <div class="mb-3">
                             <h4>Zadávání naměřených údajů</h3>
-                            <span>S přidáním alespoň jedné stanice můžete v sekci </span> <a href="report.php">Záznam</a> zadávat naměřené údaje.
+                            <span>S přidáním alespoň jedné stanice se v sekci </span> <a href="report.php">Záznam</a> umožní zadávat naměřené údaje.
                             </span>
                         </div>
                     </div>
